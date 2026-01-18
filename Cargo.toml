@@ -1,0 +1,64 @@
+[package]
+name = "rag-plusplus-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT"
+repository = "https://github.com/mohameddiomande/rag-plusplus-core"
+authors = ["Mohamed Diomande"]
+description = "High-performance retrieval engine with SIMD-accelerated vector search and trajectory memory"
+keywords = ["rag", "retrieval", "vector-search", "hnsw", "simd"]
+categories = ["algorithms", "science", "database"]
+readme = "README.md"
+
+[features]
+default = ["parallel"]
+parallel = []  # Enable parallel processing with rayon
+salience-debug = []  # Enable salience distribution debug logging
+
+[dependencies]
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Serialization (zero-copy)
+rkyv = { version = "0.7", features = ["validation", "strict"] }
+serde = { version = "1.0", features = ["derive"] }
+
+# Numerics
+ndarray = "0.16"
+ordered-float = "4.2"
+
+# Hashing
+ahash = "0.8"
+xxhash-rust = { version = "0.8", features = ["xxh3", "xxh64", "xxh32"] }
+
+# Random
+rand = { version = "0.8", features = ["small_rng"] }
+
+# Concurrency
+parking_lot = "0.12"
+crossbeam = "0.8"
+rayon = "1.10"
+
+# Tracing
+tracing = "0.1"
+
+# Metrics
+metrics = "0.24"
+
+# Time
+instant = "0.1"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.5"
+tempfile = "3"
+
+[[bench]]
+name = "welford"
+harness = false
+
+[[bench]]
+name = "serialization"
+harness = false
